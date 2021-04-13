@@ -33,15 +33,15 @@ std::string Engine::handle_user_input(std::vector<std::string> p_acceptable_inpu
     }
 
     if (input.empty()) {
-        std::cout << "Invalid input, please select an appropriate answer." << "\n";
+        std::cout << Strings::invalid_input << "\n";
         handle_user_input(p_acceptable_input);
     }
 
     if (input.size() == 1) {
         if (p_verify_input) {
-            std::cout << "Did you choose?: " << input[0] << "\n";
+            std::cout << Strings::did_you_choose << input[0] << "\n";
 
-            if (handle_user_input(std::vector<std::string> {"Yes", "No"}, false) == "Yes") {
+            if (handle_user_input(std::vector<std::string> {Strings::yes, Strings::no}, false) == "Yes") {
                 return input[0];
             }
 
@@ -51,8 +51,8 @@ std::string Engine::handle_user_input(std::vector<std::string> p_acceptable_inpu
         return input[0];
     }
 
-    std::cout << "Which of the following did you mean?: " << "\n";
+    std::cout << Strings::which_of_the_following << "\n";
     handle_user_input(input);
 
-    return "";
+    return Strings::empty;
 }
