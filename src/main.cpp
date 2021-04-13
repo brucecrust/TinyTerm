@@ -1,8 +1,14 @@
-#include <iostream>
+#include "./engine/engine.hpp"
 
 int main() {
+    std::vector<std::vector<char>> matrix = {
+        {'.', '.', '.'},
+        {'.', '.', '.'},
+        {'.', '.', '.'},
+    };
 
-    std::cout << "Hello World" << "\n";
+    Engine::print_2D_vector(matrix);
+    Engine::handle_user_input(std::vector<std::string> {"Fireball", "Firestorm"});
 
     return 0;
 }

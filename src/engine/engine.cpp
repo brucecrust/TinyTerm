@@ -16,38 +16,43 @@ void Engine::print_string_vector(std::vector<std::string> p_strings) {
     }
 }
 
-std::string Engine::handle_user_input(std::vector<std::string> p_acceptable_input, bool p_verify_input = true) {
+std::string Engine::handle_user_input(std::vector<std::string> p_acceptable_input, bool p_verify_input) {
     print_string_vector(p_acceptable_input);
 
     std::string raw_input;
 
-    for (;;) {
-        std::cin >> raw_input;
+    std::cin >> raw_input;
 
-        std::vector<std::string> input;
+    std::vector<std::string> input;
 
-        for (std::string i : p_acceptable_input) {
-            if (std::find(p_acceptable_input.begin(), p_acceptable_input.end(), i) != p_acceptable_input.end()) {
-                if (i.rfind(raw_input, 0) == 0) input.push_back(i);
-            }
+    // For each string in the provided answer vector, check if the user's input matches an option in the vector.
+    for (std::string i : p_acceptable_input) {
+        if (std::find(p_acceptable_input.begin(), p_acceptable_input.end(), i) != p_acceptable_input.end()) {
+            if (i.rfind(raw_input, 0) == 0) input.push_back(i);
         }
-
-        if (input.empty()) {
-            std::cout << "Invalid input, please select an appropriate answer." << "\n";
-        }
-
-        if (input.size() == 1) {
-            if (p_verify_input) {
-                if (handle_user_input(std::vector<std::string> {"Yes", "No"}, false) == "Yes") {
-                    return input[0];
-                }
-            }
-            
-            return input[0];
-        }
-
-        std::cout << "Which of the following did you mean?: " << "\n";
-        handle_user_input(input);
     }
-}
 
+    if (input.empty()) {
+        std::cout << "Invalid input, please select an appropriate answer." << "\n";
+        handle_user_input(p_acceptable_input);
+    }
+
+    if (input.size() == 1) {
+        if (p_verify_input) {
+            std::cout << "Did you choose?: " << input[0] << "\n";
+
+            if (handle_user_input(std::vector<std::string> {"Yes", "No"}, false) == "Yes") {
+                return input[0];
+            }
+
+            handle_user_input(p_acceptable_input);
+        }
+
+        return input[0];
+    }
+
+    std::cout << "Which of the following did you mean?: " << "\n";
+    handle_user_input(input);
+
+    return "";
+}

@@ -1,2 +1,2 @@
 main: ./src/engine/engine.hpp
-	g++ -Wall -Wextra -o ./bin/main.exe ./src/main.cpp && ./bin/main.exe
+	g++ -std=c++20 -Wall -Wextra -o ./bin/main.exe ./src/main.cpp ./src/engine/engine.cpp && ./bin/main.exe
