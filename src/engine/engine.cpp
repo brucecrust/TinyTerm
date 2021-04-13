@@ -16,6 +16,8 @@ void Engine::print_string_vector(std::vector<std::string> p_strings) {
     }
 }
 
+// TODO: Allow for users to enter 'q' to quit this loop. 
+// TODO: Ignore casing on user input.
 std::string Engine::handle_user_input(std::vector<std::string> p_acceptable_input, bool p_verify_input) {
     print_string_vector(p_acceptable_input);
 
