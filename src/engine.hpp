@@ -1,7 +1,7 @@
 #ifndef ENGINE_H
 #define ENGINE_H
 
-#include "../res/strings.hpp"
+#include "strings.hpp"
 #include <vector>
 #include <string>
 #include <iostream>
