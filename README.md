@@ -1,12 +1,12 @@
 # TinyTerm 
 ## A Terminal Game Engine
 
-# Use on Linux:
+### Use on Linux:
 For now, I will be using Make on Linux to compile the needed files for the program. This is due to my lack of familiarity with CMake. The plan it to ultimately replace Make with CMake. 
 
 Running `make` within the root directory of this project will compile the main and header files, and launch the program. 
 
-# Use on Windows and Visual Studio 2019:
+### Use on Windows and Visual Studio 2019:
 To compile and use this project on Windows, and Visual Studio, you will need CMake installed. Visit cmake.org and download the appropriate version. 
 
 To build using CMake:
@@ -20,3 +20,13 @@ To build using CMake:
 8. CMake should successfully build the project; open a file explorer and navigate to the build directory.
 9. A `sln` solution file should be displayed in the directory; this file should be named "TinyTerm". Open this file using Visual Studio.
 10. Visual Studio should successfully launch the project, displaying the header and source files within the respective directories.
+
+#### Notes:
+- If you run the Debugger in Visual Studio and get an "Access Denied" error, it is most likely due to Visual Studio attempting to run the `ALL_BUILD` solution instead of `TinyTerm`. To fix this, do the following:
+1. Right click on the "Solution 'Tiny Term'" at the top of the Solution Explorer.
+2. Select "Set Startup Projects..."
+3. A dialog window should appear; make sue "Startup Project" is selected under "Common Properties" on the left hand selection menu.
+4. There are 3 radio buttons that appear, select "Single startup project" if not selected.
+5. From the dropdown menu, select "TinyTerm" instead of "ALL_BUILD".
+6. Apply changes and close the window; select the "Local Windows Debugger" once again to run the program.
+7. A terminal interface should appear displaying to program.
