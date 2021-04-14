@@ -25,6 +25,15 @@ namespace Engine {
     */
     void print_string_vector(std::vector<std::string> p_strings);
 
+    /**
+     * Using a reference to a 2D character vector matrix, insert a character sprite at the given coordinates.
+     * 
+     * @param p_matrix: A reference to a 2D character vector that you would like to modify.
+     * @param p_coordinates: A pair of size_t coordinates. The character will be inserted here.
+     * @param p_sprite: A character sprite to insert into the matrix.
+    */
+    void modify_2D_vector_at_position(std::vector<std::vector<char>> &p_matrix, std::pair<std::size_t, std::size_t> p_coordinates, char p_sprite);
+
     // Input Interactions:
 
     /**

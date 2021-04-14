@@ -16,6 +16,12 @@ void Engine::print_string_vector(std::vector<std::string> p_strings) {
     }
 }
 
+void Engine::modify_2D_vector_at_position(std::vector<std::vector<char>> &p_matrix, std::pair<std::size_t, std::size_t> p_coordinates, char p_sprite) {
+    if (p_coordinates.first > p_matrix.size()) return;
+    if (p_coordinates.second > p_matrix[p_coordinates.first].size()) return;
+    p_matrix[p_coordinates.first][p_coordinates.second] = p_sprite;
+}
+
 // TODO: Allow for users to enter 'q' to quit this loop. 
 // TODO: Ignore casing on user input.
 std::string Engine::handle_user_input(std::vector<std::string> p_acceptable_input, bool p_verify_input) {
