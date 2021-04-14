@@ -2,9 +2,15 @@
 ## A Terminal Game Engine
 
 ### Use on Linux:
-For now, I will be using Make on Linux to compile the needed files for the program. This is due to my lack of familiarity with CMake. The plan it to ultimately replace Make with CMake. 
-
-Running `make` within the root directory of this project will compile the main and header files, and launch the program. 
+To use on Linux, do the following:
+1. In the root directory, create a "build" directory and `cd` into it.
+2. Execute this command: `ccmake ..`.
+3. A dialog should appear with various options, type `c`; this should configure our files for us.
+4. Once returned to the main dialog, type `c` once more.
+5. Type `g` to generate the makefiles.
+6. Once returned to the main terminal interface, type `make`.
+7. A message should appear reading: `Built target TinyTerm`.
+8. `cd` into "src", and enter: `./TinyTerm`.
 
 ### Use on Windows and Visual Studio 2019:
 
