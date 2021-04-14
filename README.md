@@ -7,6 +7,8 @@ For now, I will be using Make on Linux to compile the needed files for the progr
 Running `make` within the root directory of this project will compile the main and header files, and launch the program. 
 
 ### Use on Windows and Visual Studio 2019:
+[![Windows CMake Visual Studio Tutorial Video](https://img.youtube.com/vi/oCmclfF_WKU/maxresdefault.jpg)](https://www.youtube.com/watch?v=oCmclfF_WKU)
+
 To compile and use this project on Windows, and Visual Studio, you will need CMake installed. Visit cmake.org and download the appropriate version. 
 
 To build using CMake:
