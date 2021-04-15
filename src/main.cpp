@@ -1,19 +1,30 @@
 #include "engine.hpp"
 
-int main() {
-    // TODO: Curses initialization; move to engine.
-    initscr();
-    cbreak();
-    noecho();
-    keypad(stdscr, TRUE);
-
-    printw("Hello world\n ");
-    printw("Enter 'q' to exit: ");
-    refresh();
-    int ch = getch();
-    if (ch == 'q') {
-        endwin();
+class TinyTerm : public Engine::Engine {
+public:
+    void on_create() override {
+        Engine::on_create();
+        on_update();
     }
+
+    void on_update() override {
+        printw("Enter 'q' to exit: ");
+        wrefresh(p_window);
+        for (;;) {
+            int ch = getch();
+            if (ch == 'q') {
+                break;
+            }
+        }
+
+        Engine::on_destroy();
+    }
+};
+
+int main() {
+    auto tinyTerm = new TinyTerm();
+    tinyTerm->on_create();
+    delete tinyTerm;
 
     return 0;
 }
