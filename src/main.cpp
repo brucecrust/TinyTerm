@@ -1,15 +1,19 @@
 #include "engine.hpp"
 
-// TEST COMMENT: This is written in visual studio!
 int main() {
-    std::vector<std::vector<char>> matrix = {
-        {'.', '.', '.'},
-        {'.', '.', '.'},
-        {'.', '.', '.'},
-    };
+    // TODO: Curses initialization; move to engine.
+    initscr();
+    cbreak();
+    noecho();
+    keypad(stdscr, TRUE);
 
-    Engine::print_2D_vector(matrix);
-    Engine::handle_user_input(std::vector<std::string> {"Fireball", "Firestorm"});
+    printw("Hello world\n");
+    printw("Enter 'q' to exit: ");
+    refresh();
+    int ch = getch();
+    if (ch == 'q') {
+        endwin();
+    }
 
     return 0;
 }
