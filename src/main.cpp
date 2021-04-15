@@ -7,7 +7,7 @@ int main() {
     noecho();
     keypad(stdscr, TRUE);
 
-    printw("Hello world\n");
+    printw("Hello world\n ");
     printw("Enter 'q' to exit: ");
     refresh();
     int ch = getch();
