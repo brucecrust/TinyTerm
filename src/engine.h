@@ -1,7 +1,7 @@
 #ifndef ENGINE_H
 #define ENGINE_H
 
-#include "strings.hpp"
+#include "strings.h"
 #include <vector>
 #include <string>
 #include <iostream>
@@ -9,7 +9,6 @@
 #include <curses.h>
 
 namespace Engine {
-
     class Engine {
     public:
         /**
@@ -34,6 +33,8 @@ namespace Engine {
          * Called after the game loop; i.e. when the last on_update call is made.
          * */
         virtual void on_destroy();
+
+        void draw_to_window(int column, int row, char character);
     };
 
     // Vector Interactions: 
