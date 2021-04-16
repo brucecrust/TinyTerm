@@ -3,14 +3,12 @@
 
 namespace Numerics {
 
+    const auto default_int = 0;
+
     namespace Windows {
 
-        // Offsets:
-        const int standard_offset = 0;
-        const int text_window_x_offset = 10;
-
         // Sizes:
-        const int text_window_x = 10;
+        const auto text_window_x = 10;
     }
 }
 

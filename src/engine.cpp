@@ -23,6 +23,27 @@ void Engine::Engine::on_destroy() {
 
 Engine::Engine::Engine() {}
 
+// Utilities:
+
+void Engine::Engine::draw_window_border(WINDOW *p_window) {
+    wborder(p_window,
+            Numerics::default_int,
+            Numerics::default_int,
+            Numerics::default_int,
+            Numerics::default_int,
+            Numerics::default_int,
+            Numerics::default_int,
+            Numerics::default_int,
+            Numerics::default_int);
+
+    wrefresh(p_window);
+}
+
+void Engine::Engine::print_to_window(WINDOW *window, int column, int line, const char* text) {
+    mvwprintw(window, column, line, text);
+    wrefresh(window);
+}
+
 void Engine::print_2D_vector(std::vector<std::vector<char>> p_matrix) {
     for (std::size_t column = 0; column < p_matrix.size(); ++column) {
         for (std::size_t row = 0; row < p_matrix[column].size(); ++row) {

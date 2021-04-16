@@ -1,39 +1,19 @@
 #include "tinyterm.h"
 
+// Life Cycles:
 void TinyTerm::on_create() {
     Engine::on_create();
 
-    //p_main_window = newwin(LINES - 10, COLS, 0, 0);
-    //p_text_window = newwin(10, COLS, LINES - 10, 0);
-
-    text_window_size = { Numerics::Windows::text_window_x, COLS };
-    main_window_size = { LINES - text_window_size.first, COLS };
-
-    p_main_window = newwin(
-            main_window_size.first,
-            main_window_size.second,
-            Numerics::Windows::standard_offset,
-            Numerics::Windows::standard_offset);
-
-    int p_text_window_offset = LINES - Numerics::Windows::text_window_x_offset;
-
-    p_text_window = newwin(
-            text_window_size.first,
-            text_window_size.second,
-            p_text_window_offset,
-            Numerics::Windows::standard_offset);
+    initialize_windows();
+    draw_window_border(p_m_main_window);
+    draw_window_border(p_m_text_window);
+    print_to_window(p_m_main_window, 0, 0, )
 
     on_update();
 }
 
 void TinyTerm::on_update() {
-    wborder(p_main_window, 0, 0, 0, 0, 0, 0, 0, 0);
-    wprintw(p_main_window, "TinyTerm");
-    wborder(p_text_window, 0, 0, 0, 0, 0, 0, 0, 0);
 
-    mvwprintw(p_text_window, 1, 1, "Press q to quit:");
-    wrefresh(p_main_window);
-    wrefresh(p_text_window);
 
     // TODO: This means nothing; regardless of what the user presses on_destroy is called.
     int ch = getch();
@@ -42,6 +22,21 @@ void TinyTerm::on_update() {
     }
 }
 
-void TinyTerm::generate_game_space() {
+// Utilities:
 
+void TinyTerm::initialize_windows() {
+    m_text_window_size = {Numerics::Windows::text_window_x, COLS };
+    m_main_window_size = {LINES - m_text_window_size.first, COLS };
+
+    p_m_main_window = newwin(m_main_window_size.first,
+            m_main_window_size.second,
+            Numerics::default_int,
+            Numerics::default_int);
+
+    p_m_text_window = newwin(m_text_window_size.first,
+            m_text_window_size.second,
+            m_main_window_size.first,
+            Numerics::default_int);
 }
+
+void TinyTerm::generate_game_space() {}

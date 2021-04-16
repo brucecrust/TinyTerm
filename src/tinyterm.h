@@ -8,13 +8,18 @@ class TinyTerm : public Engine::Engine {
 public:
     TinyTerm() : Engine::Engine() {}
 
-    std::pair<int, int> main_window_size, text_window_size;
+    // Members:
+    std::pair<int, int> m_main_window_size, m_text_window_size;
 
-    WINDOW *p_main_window, *p_text_window;
+    WINDOW *p_m_main_window, *p_m_text_window;
 
+    // Life Cycles:
     void on_create() override;
 
     void on_update() override;
+
+    // Utilities:
+    void initialize_windows();
 
     void generate_game_space();
 };
