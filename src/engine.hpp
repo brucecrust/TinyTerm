@@ -6,8 +6,35 @@
 #include <string>
 #include <iostream>
 #include <algorithm>
+#include <curses.h>
 
 namespace Engine {
+
+    class Engine {
+    public:
+        /**
+         * Initializes basic Curses functionality, such as p_window.
+         * */
+        Engine();
+
+        WINDOW *p_window;
+
+        /**
+         * Gets called on class initialization. All setup logic should live here.
+         * */
+        virtual void on_create();
+
+        /**
+         * Starts the game loop and calls the window refresh button every frame.
+         * */
+        virtual void on_update();
+
+
+        /**
+         * Called after the game loop; i.e. when the last on_update call is made.
+         * */
+        virtual void on_destroy();
+    };
 
     // Vector Interactions: 
 

@@ -1,5 +1,27 @@
 #include "engine.hpp"
 
+void Engine::Engine::on_create() {
+    initscr();
+    cbreak();
+    noecho();
+    keypad(stdscr, TRUE);
+    p_window = newwin(200, 100, 5, 5);
+}
+
+void Engine::Engine::on_update() {
+    for (;;) {
+        break;
+    }
+    on_destroy();
+}
+
+void Engine::Engine::on_destroy() {
+    endwin();
+    delwin(p_window);
+}
+
+Engine::Engine::Engine() {}
+
 void Engine::print_2D_vector(std::vector<std::vector<char>> p_matrix) {
     for (std::size_t column = 0; column < p_matrix.size(); ++column) {
         for (std::size_t row = 0; row < p_matrix[column].size(); ++row) {
