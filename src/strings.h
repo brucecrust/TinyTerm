@@ -1,3 +1,6 @@
+#ifndef STRINGS_H
+#define STRINGS_H
+
 namespace Strings {
 
     // Standard:
@@ -12,3 +15,5 @@ namespace Strings {
     const auto did_you_choose = "Did you choose: ";
     const auto which_of_the_following = "Which of the following did you mean?: ";
 }
+
+#endif

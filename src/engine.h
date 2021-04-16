@@ -16,6 +16,8 @@ namespace Engine {
          * */
         Engine();
 
+        _win_st screen;
+
         /**
          * Gets called on class initialization. All setup logic should live here.
          * */
@@ -31,8 +33,6 @@ namespace Engine {
          * Called after the game loop; i.e. when the last on_update call is made.
          * */
         virtual void on_destroy();
-
-        void draw_to_window(int column, int row, char character);
     };
 
     // Vector Interactions: 

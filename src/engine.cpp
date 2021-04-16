@@ -6,6 +6,7 @@ void Engine::Engine::on_create() {
     cbreak();
     noecho();
     keypad(stdscr, TRUE);
+    refresh();
 }
 
 void Engine::Engine::on_update() {
@@ -21,11 +22,6 @@ void Engine::Engine::on_destroy() {
 }
 
 Engine::Engine::Engine() {}
-
-// Engine Utilities:
-void Engine::Engine::draw_to_window(int column, int row, char character) {
-    mvwaddch(stdscr, column, row, character);
-}
 
 void Engine::print_2D_vector(std::vector<std::vector<char>> p_matrix) {
     for (std::size_t column = 0; column < p_matrix.size(); ++column) {
