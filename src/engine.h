@@ -16,8 +16,6 @@ namespace Engine {
          * */
         Engine();
 
-        WINDOW *p_window;
-
         /**
          * Gets called on class initialization. All setup logic should live here.
          * */

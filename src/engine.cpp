@@ -6,7 +6,6 @@ void Engine::Engine::on_create() {
     cbreak();
     noecho();
     keypad(stdscr, TRUE);
-    p_window = newwin(200, 100, 5, 5);
 }
 
 void Engine::Engine::on_update() {
@@ -18,14 +17,14 @@ void Engine::Engine::on_update() {
 
 void Engine::Engine::on_destroy() {
     endwin();
-    delwin(p_window);
+    delwin(stdscr);
 }
 
 Engine::Engine::Engine() {}
 
 // Engine Utilities:
 void Engine::Engine::draw_to_window(int column, int row, char character) {
-    mvwaddch(p_window, column, row, character);
+    mvwaddch(stdscr, column, row, character);
 }
 
 void Engine::print_2D_vector(std::vector<std::vector<char>> p_matrix) {

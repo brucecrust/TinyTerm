@@ -6,14 +6,23 @@ void TinyTerm::on_create() {
 }
 
 void TinyTerm::on_update() {
-    printw("Enter 'q' to exit: ");
-    wrefresh(p_window);
-    for (;;) {
-        int ch = getch();
-        if (ch == 'q') {
-            break;
-        }
+    int column = 5;
+    int row = 5;
+    for (int i = 0; i < 10; ++i) {
+        draw_to_window(column, row, '-');
+        ++column;
+        ++row;
+        refresh();
+    }
+
+    int ch = getch();
+    if (ch == 'q') {
+        Engine::on_destroy();
     }
 
     Engine::on_destroy();
+}
+
+void TinyTerm::generate_game_space() {
+
 }

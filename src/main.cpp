@@ -1,10 +1,7 @@
-#include "engine.h"
 #include "tinyterm.h"
 
 int main() {
-    auto tinyTerm = new TinyTerm();
-    tinyTerm->on_create();
-    delete tinyTerm;
-
+    auto tinyTerm = TinyTerm();
+    tinyTerm.on_create();
     return 0;
 }
