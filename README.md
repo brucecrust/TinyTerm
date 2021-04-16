@@ -44,3 +44,27 @@ To build using CMake:
 5. From the dropdown menu, select "TinyTerm" instead of "ALL_BUILD".
 6. Apply changes and close the window; select the "Local Windows Debugger" once again to run the program.
 7. A terminal interface should appear displaying to program.
+
+### Curses Integration on Windows Visual Studio:
+Curses is a Unix-specific library. To get around this, we can use Microsoft's `vcpkg` utility, found here: [vcpkg](https://github.com/Microsoft/vcpkg).
+
+To use this, do the following:
+1. Using the link above, clone the git repository to anywhere you'd like.
+2. Navigate to the `vcpkg` directory and type: `./bootstrap-vcpkg.bat`.
+3. Add this directory to your Windows system/user path.
+4. To integrate with Visual Studio, type the following: `vcpkg integrate install`.
+5. Open the project in Visual Studio, and navigate to `engine.hpp`. 
+6. Most likely, the include statement for: `curses.h`. 
+7. Open the terminal and type the following: `vcpkg install pdcurses:x64-windows`.
+8. After that is installed, type `vcpkg integrate project`.
+9. Navigate back to Visual studio, then go to the top bar and do the following: _Tools->NuGet Package Manager->Package Manager Console_.
+10. This will open a console at the bottom of the screen; within it, enter: `Install-Package vcpkg.C.vclib.vcpkg -Source "C:\vclib\vcpkg\scripts\buildsystems"` where `C:\vclib\vcpkg` is the installation directory for `vcpkg`, i.e. the place where you cloned it from Github.
+11. Return to `engine.hpp`; the include statement for Curses should no longer be red.
+12. Attempt to build and run; if successful, the program should display!
+
+#### Notes:
+If the an error occurs when attempting to launch the program indicating that the `pdcurses.dll` could not be found; do the following:
+1. Right click on the TinyTerm solution and select _Properties_.
+2. In the TinyTerm Property Pages dialog, select _Linker_ from the right hand navigation menu.
+3. Under the Linker dropdown, select _Input_.
+4. Within the Input menu, add `pdcurses.lib` to the _Additonal Dependencies_ line, and then apply the changes.
