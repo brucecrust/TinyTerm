@@ -1,11 +1,12 @@
-#include "engine.hpp"
+#include "engine.h"
 
+// Engine Lifecycle:
 void Engine::Engine::on_create() {
     initscr();
     cbreak();
     noecho();
     keypad(stdscr, TRUE);
-    p_window = newwin(200, 100, 5, 5);
+    refresh();
 }
 
 void Engine::Engine::on_update() {
@@ -17,10 +18,31 @@ void Engine::Engine::on_update() {
 
 void Engine::Engine::on_destroy() {
     endwin();
-    delwin(p_window);
+    delwin(stdscr);
 }
 
 Engine::Engine::Engine() {}
+
+// Utilities:
+
+void Engine::Engine::draw_window_border(WINDOW *p_window) {
+    wborder(p_window,
+            Numerics::default_int,
+            Numerics::default_int,
+            Numerics::default_int,
+            Numerics::default_int,
+            Numerics::default_int,
+            Numerics::default_int,
+            Numerics::default_int,
+            Numerics::default_int);
+
+    wrefresh(p_window);
+}
+
+void Engine::Engine::print_to_window(WINDOW *window, int column, int line, const char* text) {
+    mvwprintw(window, column, line, text);
+    wrefresh(window);
+}
 
 void Engine::print_2D_vector(std::vector<std::vector<char>> p_matrix) {
     for (std::size_t column = 0; column < p_matrix.size(); ++column) {

@@ -3,7 +3,9 @@ if (NOT WIN32)
 	include_directories(${CURSES_INCLUDE_DIR})
 ENDIF()
 
-add_executable(${PROJECT_NAME} main.cpp engine.cpp engine.hpp strings.hpp)
+file(GLOB src CONFIGURE_DEPENDS "*.h" "*.cpp")
+
+add_executable(${PROJECT_NAME} ${src})
 
 if (NOT WIN32)
 	target_link_libraries(${PROJECT_NAME} ${CURSES_LIBRARIES})

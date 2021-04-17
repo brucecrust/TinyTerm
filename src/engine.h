@@ -1,7 +1,8 @@
 #ifndef ENGINE_H
 #define ENGINE_H
 
-#include "strings.hpp"
+#include "strings.h"
+#include "numerics.h"
 #include <vector>
 #include <string>
 #include <iostream>
@@ -9,15 +10,12 @@
 #include <curses.h>
 
 namespace Engine {
-
     class Engine {
     public:
         /**
          * Initializes basic Curses functionality, such as p_window.
          * */
         Engine();
-
-        WINDOW *p_window;
 
         /**
          * Gets called on class initialization. All setup logic should live here.
@@ -34,6 +32,23 @@ namespace Engine {
          * Called after the game loop; i.e. when the last on_update call is made.
          * */
         virtual void on_destroy();
+
+        /**
+         * Draws a standard border around the given p_window.
+         *
+         * @param p_window: A pointer to a given window.
+         * */
+        void draw_window_border(WINDOW *p_window);
+
+        /**
+         * Print text to a given window at the provided coordinates.
+         *
+         * @param window: A pointer to a given window.
+         * @param column: An integer representing the column position.
+         * @param line: An integer representing the line position.
+         * @param text: The text to print to the window.
+         * */
+        void print_to_window(WINDOW *window, int column, int line, const char* text);
     };
 
     // Vector Interactions: 
