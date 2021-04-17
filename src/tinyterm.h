@@ -1,16 +1,18 @@
-#ifndef TINYTERM_TINYTERM_H
-#define TINYTERM_TINYTERM_H
+#ifndef TINYTERM_H
+#define TINYTERM_H
 
 #include "engine.h"
 
 class TinyTerm : public Engine::Engine {
+
 public:
     TinyTerm() : Engine::Engine() {}
 
     // Members:
-    std::pair<int, int> m_main_window_size, m_text_window_size;
+    std::pair<int, int> m_main_window_size, m_text_window_size, m_player_window_size;
+    std::pair<int, int> m_player_position;
 
-    WINDOW *p_m_main_window, *p_m_text_window;
+    WINDOW *p_m_main_window, *p_m_text_window, *p_m_player_window;
 
     // Life Cycles:
     void on_create() override;
@@ -19,8 +21,6 @@ public:
 
     // Utilities:
     void initialize_windows();
-
-    void generate_game_space();
 };
 
 #endif

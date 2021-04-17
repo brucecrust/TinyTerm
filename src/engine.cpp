@@ -4,6 +4,7 @@
 // Engine Lifecycle:
 void Engine::Engine::on_create() {
     initscr();
+    start_color();
     cbreak();
     noecho();
     keypad(stdscr, TRUE);
@@ -45,15 +46,14 @@ void Engine::Engine::print_to_window(WINDOW *window, int column, int line, const
     wrefresh(window);
 }
 
-std::string Engine::Engine::get_file_contents(std::string file_name) {
-    std::string contents;
+std::vector<std::string> Engine::Engine::get_file_contents(std::string file_name) {
+    std::vector<std::string> contents;
     std::ifstream reader(file_name);
 
     while (reader.good()) {
         std::string buffer;
         std::getline(reader, buffer);
-        buffer += "\n";
-        contents += buffer;
+        contents.push_back(buffer);
     }
 
     reader.close();
@@ -61,24 +61,22 @@ std::string Engine::Engine::get_file_contents(std::string file_name) {
     return contents;
 }
 
-void Engine::Engine::print_ascii(WINDOW *window, int column, int line, const std::string& file_name) {
+void Engine::Engine::print_ascii(WINDOW *window, int column, int line, const std::string& file_name, short foreground_color, short background_color) {
     // Since the executable runs from a build directory, we need to back up and provide an appropriate path.
     std::string back_path = "../../src/res/";
-    std::string ascii = get_file_contents(back_path + file_name);
+    std::vector<std::string> ascii = get_file_contents(back_path + file_name);
 
-    int original_line = line;
-    for (;;) {
-        for (char &c : ascii) {
-            mvwaddch(window, column, line, c);
-            ++line;
-            if (c == '\n') {
-                ++column;
-                line = original_line;
-            }
-            wrefresh(window);
-        }
-        break;
+    ++m_default_color_pair;
+    init_pair(m_default_color_pair, foreground_color, background_color);
+
+    for (auto &i : ascii) {
+        wattron(window, COLOR_PAIR(m_default_color_pair));
+        mvwprintw(window, column, line, i.c_str());
+        wattroff(window, COLOR_PAIR(m_default_color_pair));
+        ++column;
     }
+
+    wrefresh(window);
 }
 
 void Engine::print_2D_vector(std::vector<std::vector<char>> p_matrix) {

@@ -10,8 +10,12 @@
 #include <fstream>
 
 namespace Engine {
+
     class Engine {
+
     public:
+        short m_default_color_pair = 0;
+
         /**
          * Initializes basic Curses functionality, such as p_window.
          * */
@@ -50,9 +54,9 @@ namespace Engine {
          * */
         static void print_to_window(WINDOW *window, int column, int line, const char *text);
 
-        static std::string get_file_contents(std::string file_name);
+        static std::vector<std::string> get_file_contents(std::string file_name);
 
-        static void print_ascii(WINDOW *window, int column, int line, const std::string& file_name);
+        void print_ascii(WINDOW *window, int column, int line, const std::string& file_name, short foreground_color, short background_color);
     };
 
     // Vector Interactions: 
