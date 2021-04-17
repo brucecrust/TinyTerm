@@ -4,7 +4,8 @@
 namespace Strings {
 
     // Titles:
-    const auto
+    const auto tiny_term = "TinyTerm";
+    const auto menu = "Menu";
 
     // Standard:
     const auto empty = "";
@@ -15,6 +16,7 @@ namespace Strings {
     const auto invalid_input = "Invalid input, please select an appropriate answer." ;
     const auto did_you_choose = "Did you choose: ";
     const auto which_of_the_following = "Which of the following did you mean?: ";
+    const auto press_q_to_quit = "Press 'q' to quit: ";
 }
 
 #endif

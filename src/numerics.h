@@ -7,6 +7,9 @@ namespace Numerics {
 
     namespace Windows {
 
+        // Placement:
+        const auto default_dialog_offset = 1;
+
         // Sizes:
         const auto text_window_x = 10;
     }

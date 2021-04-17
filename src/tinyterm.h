@@ -2,7 +2,6 @@
 #define TINYTERM_TINYTERM_H
 
 #include "engine.h"
-#include "numerics.h"
 
 class TinyTerm : public Engine::Engine {
 public:
