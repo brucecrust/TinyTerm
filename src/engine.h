@@ -6,7 +6,6 @@
 #include <curses.h>
 #include <vector>
 #include <string>
-#include <iostream>
 #include <algorithm>
 #include <fstream>
 

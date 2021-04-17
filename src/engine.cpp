@@ -62,7 +62,10 @@ std::string Engine::Engine::get_file_contents(std::string file_name) {
 }
 
 void Engine::Engine::print_ascii(WINDOW *window, int column, int line, const std::string& file_name) {
-    std::string ascii = get_file_contents(file_name);
+    // Since the executable runs from a build directory, we need to back up and provide an appropriate path.
+    std::string back_path = "../../src/res/";
+    std::string ascii = get_file_contents(back_path + file_name);
+
     int original_line = line;
     for (;;) {
         for (char &c : ascii) {
