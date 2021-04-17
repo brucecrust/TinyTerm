@@ -16,11 +16,12 @@ void TinyTerm::on_create() {
                     Numerics::Windows::default_dialog_offset,
                     Strings::press_q_to_quit);
 
+    print_ascii(p_m_main_window, 5, 5, "/home/bryce/Code/tiny_term/src/test");
+
     on_update();
 }
 
 void TinyTerm::on_update() {
-    // TODO: This means nothing; regardless of what the user presses on_destroy is called.
     int ch = getch();
     if (ch == 'q') {
         Engine::on_destroy();

@@ -3,11 +3,12 @@
 
 #include "strings.h"
 #include "numerics.h"
+#include <curses.h>
 #include <vector>
 #include <string>
 #include <iostream>
 #include <algorithm>
-#include <curses.h>
+#include <fstream>
 
 namespace Engine {
     class Engine {
@@ -38,7 +39,7 @@ namespace Engine {
          *
          * @param p_window: A pointer to a given window.
          * */
-        void draw_window_border(WINDOW *p_window);
+        static void draw_window_border(WINDOW *p_window);
 
         /**
          * Print text to a given window at the provided coordinates.
@@ -48,7 +49,11 @@ namespace Engine {
          * @param line: An integer representing the line position.
          * @param text: The text to print to the window.
          * */
-        void print_to_window(WINDOW *window, int column, int line, const char* text);
+        static void print_to_window(WINDOW *window, int column, int line, const char *text);
+
+        static std::string get_file_contents(std::string file_name);
+
+        static void print_ascii(WINDOW *window, int column, int line, const std::string& file_name);
     };
 
     // Vector Interactions: 

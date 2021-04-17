@@ -1,4 +1,5 @@
 #include "engine.h"
+#include <iostream>
 
 // Engine Lifecycle:
 void Engine::Engine::on_create() {
@@ -39,9 +40,30 @@ void Engine::Engine::draw_window_border(WINDOW *p_window) {
     wrefresh(p_window);
 }
 
-void Engine::Engine::print_to_window(WINDOW *window, int column, int line, const char* text) {
+void Engine::Engine::print_to_window(WINDOW *window, int column, int line, const char *text) {
     mvwprintw(window, column, line, text);
     wrefresh(window);
+}
+
+std::string Engine::Engine::get_file_contents(std::string file_name) {
+    std::string contents;
+    std::ifstream reader(file_name);
+
+    while (reader.good()) {
+        std::string buffer;
+        std::getline(reader, buffer);
+        buffer += "\n";
+        contents += buffer;
+    }
+
+    reader.close();
+
+    return contents;
+}
+
+void Engine::Engine::print_ascii(WINDOW *window, int column, int line, const std::string& file_name) {
+    std::string ascii = get_file_contents(file_name);
+    print_to_window(window, column, line, ascii.c_str());
 }
 
 void Engine::print_2D_vector(std::vector<std::vector<char>> p_matrix) {
