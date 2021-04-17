@@ -63,7 +63,19 @@ std::string Engine::Engine::get_file_contents(std::string file_name) {
 
 void Engine::Engine::print_ascii(WINDOW *window, int column, int line, const std::string& file_name) {
     std::string ascii = get_file_contents(file_name);
-    print_to_window(window, column, line, ascii.c_str());
+    int original_line = line;
+    for (;;) {
+        for (char &c : ascii) {
+            mvwaddch(window, column, line, c);
+            ++line;
+            if (c == '\n') {
+                ++column;
+                line = original_line;
+            }
+            wrefresh(window);
+        }
+        break;
+    }
 }
 
 void Engine::print_2D_vector(std::vector<std::vector<char>> p_matrix) {

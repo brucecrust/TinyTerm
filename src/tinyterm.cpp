@@ -16,7 +16,7 @@ void TinyTerm::on_create() {
                     Numerics::Windows::default_dialog_offset,
                     Strings::press_q_to_quit);
 
-    print_ascii(p_m_main_window, 5, 5, "/home/bryce/Code/tiny_term/src/test");
+    print_ascii(p_m_main_window, 10, 10, "/home/bryce/Code/tiny_term/src/test");
 
     on_update();
 }
