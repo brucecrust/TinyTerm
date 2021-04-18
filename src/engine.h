@@ -15,6 +15,7 @@ namespace Engine {
 
     public:
         short m_default_color_pair = 0;
+        int m_last_key_press;
 
         /**
          * Initializes basic Curses functionality, such as p_window.

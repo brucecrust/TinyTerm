@@ -1,5 +1,5 @@
 #include "tinyterm.h"
-#include <string.h>
+#include <cstring>
 
 // Life Cycles:
 void TinyTerm::on_create() {
@@ -16,30 +16,31 @@ void TinyTerm::on_create() {
                     Strings::press_q_to_quit);
 
     print_ascii(p_m_main_window, 10, 10, "grass", COLOR_GREEN, COLOR_BLACK);
-    print_ascii(p_m_main_window, m_player.m_player_position.first, m_player.m_player_position.second, "player", COLOR_WHITE, COLOR_BLACK);
+    print_ascii(p_m_main_window, m_player.m_position.first, m_player.m_position.second, "player", COLOR_WHITE, COLOR_BLACK);
 
     wrefresh(p_m_main_window);
     on_update();
 }
 
 void TinyTerm::on_update() {
-    std::pair<int, int> new_position = { m_player.m_player_position.first, m_player.m_player_position.second };
     int player_pos_chars = strlen(Strings::player_position);
 
     // TODO: Create debug functions and hide them away
     print_to_window(p_m_debug_window, 1, 1, Strings::player_position);
-    print_to_window(p_m_debug_window, 1, player_pos_chars+2, std::to_string(m_player.m_player_position.first).c_str());
-    print_to_window(p_m_debug_window, 1, player_pos_chars+5, std::to_string(m_player.m_player_position.second).c_str());
+    print_to_window(p_m_debug_window, 1, player_pos_chars+2, std::to_string(m_player.m_position.first).c_str());
+    print_to_window(p_m_debug_window, 1, player_pos_chars+5, std::to_string(m_player.m_position.second).c_str());
 
     for (;;) {
-        m_player.move();
+        m_last_key_press = m_player.move();
+        m_grass.move(m_last_key_press);
 
-        print_ascii(p_m_main_window, m_player.m_player_position.first, m_player.m_player_position.second, "player", COLOR_WHITE, COLOR_BLACK);
+        print_ascii(p_m_main_window, m_grass.m_position.first, m_grass.m_position.second, m_grass.m_ascii, COLOR_GREEN, COLOR_BLACK);
+        print_ascii(p_m_main_window, m_player.m_position.first, m_player.m_position.second, m_player.m_ascii, COLOR_WHITE, COLOR_BLACK);
         wrefresh(p_m_main_window);
 
         print_to_window(p_m_debug_window, 1, 1, Strings::player_position);
-        print_to_window(p_m_debug_window, 1, player_pos_chars+2, std::to_string(m_player.m_player_position.first).c_str());
-        print_to_window(p_m_debug_window, 1, player_pos_chars+5, std::to_string(m_player.m_player_position.second).c_str());
+        print_to_window(p_m_debug_window, 1, player_pos_chars+2, std::to_string(m_player.m_position.first).c_str());
+        print_to_window(p_m_debug_window, 1, player_pos_chars+5, std::to_string(m_player.m_position.second).c_str());
         wrefresh(p_m_debug_window);
 
         int ch = getch();

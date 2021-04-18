@@ -2,15 +2,16 @@
 #define TINYTERM_H
 
 #include "engine.h"
-#include "player_controller.h"
+#include "entity_store.h"
 
 class TinyTerm : public Engine::Engine {
 
 public:
-    TinyTerm(PlayerController &player) : Engine::Engine(), m_player(player) { m_player = player; }
+    TinyTerm() : Engine::Engine() {}
 
     // Members:
-    PlayerController &m_player;
+    EntityStore::Player m_player = EntityStore::Player("player", std::pair<int, int> { 12, 20 });
+    EntityStore::Grass m_grass = EntityStore::Grass("grass", std::pair{ 10, 10 });
 
     std::pair<int, int> m_main_window_size, m_text_window_size, m_debug_window_size;
 
