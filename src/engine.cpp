@@ -1,4 +1,5 @@
 #include "engine.h"
+// TODO: Remove for curses or remove methods
 #include <iostream>
 
 // Engine Lifecycle:
@@ -79,22 +80,6 @@ void Engine::Engine::print_ascii(WINDOW *window, int column, int line, const std
     wrefresh(window);
 }
 
-void Engine::print_2D_vector(std::vector<std::vector<char>> p_matrix) {
-    for (std::size_t column = 0; column < p_matrix.size(); ++column) {
-        for (std::size_t row = 0; row < p_matrix[column].size(); ++row) {
-            std::cout << " " << p_matrix[column][row] << " ";
-        }
-
-        std::cout << "\n";
-    }
-}
-
-void Engine::print_string_vector(std::vector<std::string> p_strings) {
-    for (auto index : p_strings) {
-        std::cout << index << "\n";
-    }
-}
-
 void Engine::modify_2D_vector_at_position(std::vector<std::vector<char>> &p_matrix, std::pair<std::size_t, std::size_t> p_coordinates, char p_sprite) {
     if (p_coordinates.first > p_matrix.size()) return;
     if (p_coordinates.second > p_matrix[p_coordinates.first].size()) return;
@@ -104,7 +89,7 @@ void Engine::modify_2D_vector_at_position(std::vector<std::vector<char>> &p_matr
 // TODO: Allow for users to enter 'q' to quit this loop. 
 // TODO: Ignore casing on user input.
 std::string Engine::handle_user_input(std::vector<std::string> p_acceptable_input, bool p_verify_input) {
-    print_string_vector(p_acceptable_input);
+    //print_string_vector(p_acceptable_input);
 
     std::string raw_input;
 

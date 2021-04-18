@@ -59,22 +59,7 @@ namespace Engine {
         void print_ascii(WINDOW *window, int column, int line, const std::string& file_name, short foreground_color, short background_color);
     };
 
-    // Vector Interactions: 
-
-    /**
-     * Prints a provided 2D character vector to the screen.
-     * 
-     * @param p_matrix: The 2D character vector matrix to print.
-    */
-    void print_2D_vector(std::vector<std::vector<char>> p_matrix);
-
-    /**
-     * Prints a simple vector of strings.
-     * 
-     * @param p_strings: The provided string vector to print.
-    */
-    void print_string_vector(std::vector<std::string> p_strings);
-
+    // Vector Interactions:
     /**
      * Using a reference to a 2D character vector matrix, insert a character sprite at the given coordinates.
      * 

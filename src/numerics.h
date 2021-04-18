@@ -11,8 +11,8 @@ namespace Numerics {
         const auto default_dialog_offset = 1;
 
         // Sizes:
-        const auto text_window_x = 10;
-        const auto player_window_xy = 5;
+        const auto text_window_y = 10;
+        const auto debug_window_x = 20;
     }
 }
 
