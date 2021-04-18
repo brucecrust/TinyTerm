@@ -29,6 +29,7 @@ void TinyTerm::on_update() {
         print_to_window(p_m_debug_window, 1, 1, Strings::player_position);
         print_to_window(p_m_debug_window, 1, player_pos_chars+2, std::to_string(new_position.first).c_str());
         print_to_window(p_m_debug_window, 1, player_pos_chars+5, std::to_string(new_position.second).c_str());
+        wrefresh(p_m_debug_window);
         wrefresh(p_m_main_window);
         m_player.move();
         print_ascii(p_m_main_window, m_player.m_player_position.first, m_player.m_player_position.second, "player", COLOR_WHITE, COLOR_BLACK);
