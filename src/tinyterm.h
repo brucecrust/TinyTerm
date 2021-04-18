@@ -3,13 +3,16 @@
 
 #include "engine.h"
 #include "entity_store.h"
+#include <cstdarg>
 
 class TinyTerm : public Engine::Engine {
 
 public:
-    TinyTerm() : Engine::Engine() {}
+    TinyTerm(bool debug_mode) : Engine::Engine() { m_debug_mode = debug_mode; }
 
     // Members:
+    bool m_debug_mode;
+
     EntityStore::Player m_player = EntityStore::Player("player", std::pair<int, int> { 12, 20 });
     EntityStore::Grass m_grass = EntityStore::Grass("grass", std::pair{ 10, 10 });
 
@@ -24,6 +27,10 @@ public:
 
     // Utilities:
     void initialize_windows();
+
+    void print_debug(const std::vector<std::string> &args, int column, int line);
+
+    void debug_player_position();
 };
 
 #endif
