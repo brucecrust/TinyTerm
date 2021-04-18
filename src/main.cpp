@@ -1,30 +1,11 @@
-#include "engine.hpp"
-
-class TinyTerm : public Engine::Engine {
-public:
-    void on_create() override {
-        Engine::on_create();
-        on_update();
-    }
-
-    void on_update() override {
-        printw("Enter 'q' to exit: ");
-        wrefresh(p_window);
-        for (;;) {
-            int ch = getch();
-            if (ch == 'q') {
-                break;
-            }
-        }
-
-        Engine::on_destroy();
-    }
-};
+#include "tinyterm.h"
+#include <iostream>
 
 int main() {
-    auto tinyTerm = new TinyTerm();
+    auto player = new PlayerController(std::pair<int, int> { 12, 20 });
+    auto tinyTerm = new TinyTerm(*player);
     tinyTerm->on_create();
+    delete player;
     delete tinyTerm;
-
     return 0;
 }

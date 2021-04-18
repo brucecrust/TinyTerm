@@ -1,23 +1,25 @@
 #ifndef ENGINE_H
 #define ENGINE_H
 
-#include "strings.hpp"
+#include "strings.h"
+#include "numerics.h"
+#include <curses.h>
 #include <vector>
 #include <string>
-#include <iostream>
 #include <algorithm>
-#include <curses.h>
+#include <fstream>
 
 namespace Engine {
 
     class Engine {
+
     public:
+        short m_default_color_pair = 0;
+
         /**
          * Initializes basic Curses functionality, such as p_window.
          * */
         Engine();
-
-        WINDOW *p_window;
 
         /**
          * Gets called on class initialization. All setup logic should live here.
@@ -34,24 +36,30 @@ namespace Engine {
          * Called after the game loop; i.e. when the last on_update call is made.
          * */
         virtual void on_destroy();
+
+        /**
+         * Draws a standard border around the given p_window.
+         *
+         * @param p_window: A pointer to a given window.
+         * */
+        static void draw_window_border(WINDOW *p_window);
+
+        /**
+         * Print text to a given window at the provided coordinates.
+         *
+         * @param window: A pointer to a given window.
+         * @param column: An integer representing the column position.
+         * @param line: An integer representing the line position.
+         * @param text: The text to print to the window.
+         * */
+        static void print_to_window(WINDOW *window, int column, int line, const char *text);
+
+        static std::vector<std::string> get_file_contents(std::string file_name);
+
+        void print_ascii(WINDOW *window, int column, int line, const std::string& file_name, short foreground_color, short background_color);
     };
 
-    // Vector Interactions: 
-
-    /**
-     * Prints a provided 2D character vector to the screen.
-     * 
-     * @param p_matrix: The 2D character vector matrix to print.
-    */
-    void print_2D_vector(std::vector<std::vector<char>> p_matrix);
-
-    /**
-     * Prints a simple vector of strings.
-     * 
-     * @param p_strings: The provided string vector to print.
-    */
-    void print_string_vector(std::vector<std::string> p_strings);
-
+    // Vector Interactions:
     /**
      * Using a reference to a 2D character vector matrix, insert a character sprite at the given coordinates.
      * 

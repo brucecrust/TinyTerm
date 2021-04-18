@@ -1,11 +1,15 @@
-#include "engine.hpp"
+#include "engine.h"
+// TODO: Remove for curses or remove methods
+#include <iostream>
 
+// Engine Lifecycle:
 void Engine::Engine::on_create() {
     initscr();
+    start_color();
     cbreak();
     noecho();
     keypad(stdscr, TRUE);
-    p_window = newwin(200, 100, 5, 5);
+    refresh();
 }
 
 void Engine::Engine::on_update() {
@@ -17,25 +21,63 @@ void Engine::Engine::on_update() {
 
 void Engine::Engine::on_destroy() {
     endwin();
-    delwin(p_window);
+    delwin(stdscr);
 }
 
 Engine::Engine::Engine() {}
 
-void Engine::print_2D_vector(std::vector<std::vector<char>> p_matrix) {
-    for (std::size_t column = 0; column < p_matrix.size(); ++column) {
-        for (std::size_t row = 0; row < p_matrix[column].size(); ++row) {
-            std::cout << " " << p_matrix[column][row] << " ";
-        }
+// Utilities:
 
-        std::cout << "\n";
-    }
+void Engine::Engine::draw_window_border(WINDOW *p_window) {
+    wborder(p_window,
+            Numerics::default_int,
+            Numerics::default_int,
+            Numerics::default_int,
+            Numerics::default_int,
+            Numerics::default_int,
+            Numerics::default_int,
+            Numerics::default_int,
+            Numerics::default_int);
+
+    wrefresh(p_window);
 }
 
-void Engine::print_string_vector(std::vector<std::string> p_strings) {
-    for (auto index : p_strings) {
-        std::cout << index << "\n";
+void Engine::Engine::print_to_window(WINDOW *window, int column, int line, const char *text) {
+    mvwprintw(window, column, line, text);
+    wrefresh(window);
+}
+
+std::vector<std::string> Engine::Engine::get_file_contents(std::string file_name) {
+    std::vector<std::string> contents;
+    std::ifstream reader(file_name);
+
+    while (reader.good()) {
+        std::string buffer;
+        std::getline(reader, buffer);
+        contents.push_back(buffer);
     }
+
+    reader.close();
+
+    return contents;
+}
+
+void Engine::Engine::print_ascii(WINDOW *window, int column, int line, const std::string& file_name, short foreground_color, short background_color) {
+    // Since the executable runs from a build directory, we need to back up and provide an appropriate path.
+    std::string back_path = "../../src/res/";
+    std::vector<std::string> ascii = get_file_contents(back_path + file_name);
+
+    ++m_default_color_pair;
+    init_pair(m_default_color_pair, foreground_color, background_color);
+
+    for (auto &i : ascii) {
+        wattron(window, COLOR_PAIR(m_default_color_pair));
+        mvwprintw(window, column, line, i.c_str());
+        wattroff(window, COLOR_PAIR(m_default_color_pair));
+        ++column;
+    }
+
+    wrefresh(window);
 }
 
 void Engine::modify_2D_vector_at_position(std::vector<std::vector<char>> &p_matrix, std::pair<std::size_t, std::size_t> p_coordinates, char p_sprite) {
@@ -47,7 +89,7 @@ void Engine::modify_2D_vector_at_position(std::vector<std::vector<char>> &p_matr
 // TODO: Allow for users to enter 'q' to quit this loop. 
 // TODO: Ignore casing on user input.
 std::string Engine::handle_user_input(std::vector<std::string> p_acceptable_input, bool p_verify_input) {
-    print_string_vector(p_acceptable_input);
+    //print_string_vector(p_acceptable_input);
 
     std::string raw_input;
 
