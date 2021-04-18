@@ -30,8 +30,14 @@ void TinyTerm::on_update() {
 
         debug_player_position();
 
+        print_ascii(p_m_main_window, m_grass.m_position.first, m_grass.m_position.second, m_grass.m_ascii, COLOR_GREEN, COLOR_BLACK);
+        print_ascii(p_m_main_window, m_player.m_position.first, m_player.m_position.second, m_player.m_ascii, COLOR_WHITE, COLOR_BLACK);
+
         m_last_key_press = m_player.move();
         m_grass.move(m_last_key_press);
+
+        wclear(p_m_main_window);
+        draw_window_border(p_m_main_window);
 
         print_ascii(p_m_main_window, m_grass.m_position.first, m_grass.m_position.second, m_grass.m_ascii, COLOR_GREEN, COLOR_BLACK);
         print_ascii(p_m_main_window, m_player.m_position.first, m_player.m_position.second, m_player.m_ascii, COLOR_WHITE, COLOR_BLACK);

@@ -95,6 +95,7 @@ void Engine::Engine::print_ascii(WINDOW *window, int column, int line, const std
     wrefresh(window);
 }
 
+// Deprecated:
 void Engine::modify_2D_vector_at_position(std::vector<std::vector<char>> &p_matrix, std::pair<std::size_t, std::size_t> p_coordinates, char p_sprite) {
     if (p_coordinates.first > p_matrix.size()) return;
     if (p_coordinates.second > p_matrix[p_coordinates.first].size()) return;
