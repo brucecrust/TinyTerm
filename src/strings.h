@@ -6,11 +6,15 @@ namespace Strings {
     // Titles:
     const auto tiny_term = "TinyTerm";
     const auto menu = "Menu";
+    const auto debug = "Debug";
 
     // Standard:
     const auto empty = "";
     const auto yes = "Yes";
     const auto no = "No";
+
+    // Debug:
+    const auto player_position = "Plyr POS:";
 
     // User Input:
     const auto invalid_input = "Invalid input, please select an appropriate answer." ;

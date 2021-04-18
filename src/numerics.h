@@ -12,7 +12,7 @@ namespace Numerics {
 
         // Sizes:
         const auto text_window_y = 10;
-        const auto debug_window_x = 20;
+        const auto debug_window_x = 50;
     }
 }
 

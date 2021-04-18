@@ -10,7 +10,7 @@ public:
 
     std::pair<int, int> m_player_position;
 
-    std::pair<int, int> move();
+    void move();
 };
 
 #endif

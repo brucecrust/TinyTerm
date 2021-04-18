@@ -7,10 +7,10 @@
 class TinyTerm : public Engine::Engine {
 
 public:
-    TinyTerm(PlayerController *player) : Engine::Engine(), m_player(player) { m_player = player; }
+    TinyTerm(PlayerController &player) : Engine::Engine(), m_player(player) { m_player = player; }
 
     // Members:
-    PlayerController *m_player;
+    PlayerController &m_player;
 
     std::pair<int, int> m_main_window_size, m_text_window_size, m_debug_window_size;
 
