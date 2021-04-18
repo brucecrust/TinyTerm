@@ -62,6 +62,21 @@ std::vector<std::string> Engine::Engine::get_file_contents(std::string file_name
     return contents;
 }
 
+std::pair<int, int> Engine::Engine::read_file_contents(std::string file_name) {
+    std::vector<std::string> contents;
+    std::pair<int, int> dimensions = { 0, 0 };
+    std::ifstream reader(file_name);
+
+    while (reader.good()) {
+        std::string buffer;
+        std::getline(reader, buffer);
+        dimensions.first += 1;
+        dimensions.second += buffer.length();
+    }
+
+    return dimensions;
+}
+
 void Engine::Engine::print_ascii(WINDOW *window, int column, int line, const std::string& file_name, short foreground_color, short background_color) {
     // Since the executable runs from a build directory, we need to back up and provide an appropriate path.
     std::string back_path = "../../src/res/";
@@ -80,6 +95,7 @@ void Engine::Engine::print_ascii(WINDOW *window, int column, int line, const std
     wrefresh(window);
 }
 
+// Deprecated:
 void Engine::modify_2D_vector_at_position(std::vector<std::vector<char>> &p_matrix, std::pair<std::size_t, std::size_t> p_coordinates, char p_sprite) {
     if (p_coordinates.first > p_matrix.size()) return;
     if (p_coordinates.second > p_matrix[p_coordinates.first].size()) return;

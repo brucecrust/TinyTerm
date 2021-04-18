@@ -2,15 +2,19 @@
 #define TINYTERM_H
 
 #include "engine.h"
-#include "player_controller.h"
+#include "entity_store.h"
+#include <cstdarg>
 
 class TinyTerm : public Engine::Engine {
 
 public:
-    TinyTerm(PlayerController &player) : Engine::Engine(), m_player(player) { m_player = player; }
+    TinyTerm(bool debug_mode) : Engine::Engine() { m_debug_mode = debug_mode; }
 
     // Members:
-    PlayerController &m_player;
+    bool m_debug_mode;
+
+    EntityStore::Player m_player = EntityStore::Player("player", std::pair<int, int> { 12, 20 });
+    EntityStore::Grass m_grass = EntityStore::Grass("grass", std::pair{ 10, 10 });
 
     std::pair<int, int> m_main_window_size, m_text_window_size, m_debug_window_size;
 
@@ -23,6 +27,10 @@ public:
 
     // Utilities:
     void initialize_windows();
+
+    void print_debug(const std::vector<std::string> &args, int column, int line);
+
+    void debug_player_position();
 };
 
 #endif
