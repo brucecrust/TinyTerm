@@ -35,31 +35,18 @@ void TinyTerm::on_update() {
             break;
         }
 
-        std::pair<int, int> previous_position;
-
         m_last_key_press = m_player.move();
+        m_grass.move(m_last_key_press);
+
+        print_ascii(p_m_main_window, m_grass.m_position.first, m_grass.m_position.second, m_grass.m_ascii, COLOR_GREEN, COLOR_BLACK);
         print_ascii(p_m_main_window, m_player.m_position.first, m_player.m_position.second, m_player.m_ascii, COLOR_WHITE, COLOR_BLACK);
 
-        print_ascii(p_m_main_window, m_grass.m_position.first, m_grass.m_position.second, "empty", COLOR_WHITE, COLOR_BLACK);
-        m_grass.move(m_last_key_press);
-        print_ascii(p_m_main_window, m_grass.m_position.first, m_grass.m_position.second, m_grass.m_ascii, COLOR_GREEN, COLOR_BLACK);
-
+        // TODO: More debug stuff to hide away
         print_to_window(p_m_debug_window, 1, 1, Strings::player_position);
         print_to_window(p_m_debug_window, 1, player_pos_chars+2, std::to_string(m_player.m_position.first).c_str());
         print_to_window(p_m_debug_window, 1, player_pos_chars+5, std::to_string(m_player.m_position.second).c_str());
+
         wrefresh(p_m_debug_window);
-
-        // TODO: Extract ascii height, width to properly iterate within a given space
-        int col = m_grass.m_position.first;
-        int row = m_grass.m_position.second;
-        for (int i = 0; i < 15; ++i) {
-            mvwaddch(p_m_main_window, col, row + i, ' ');
-            wrefresh(p_m_main_window);
-
-            if (i % 5) {
-                ++col;
-            }
-        }
     }
 
     Engine::on_destroy();
