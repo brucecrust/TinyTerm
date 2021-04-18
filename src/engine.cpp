@@ -62,6 +62,21 @@ std::vector<std::string> Engine::Engine::get_file_contents(std::string file_name
     return contents;
 }
 
+std::pair<int, int> Engine::Engine::read_file_contents(std::string file_name) {
+    std::vector<std::string> contents;
+    std::pair<int, int> dimensions = { 0, 0 };
+    std::ifstream reader(file_name);
+
+    while (reader.good()) {
+        std::string buffer;
+        std::getline(reader, buffer);
+        dimensions.first += 1;
+        dimensions.second += buffer.length();
+    }
+
+    return dimensions;
+}
+
 void Engine::Engine::print_ascii(WINDOW *window, int column, int line, const std::string& file_name, short foreground_color, short background_color) {
     // Since the executable runs from a build directory, we need to back up and provide an appropriate path.
     std::string back_path = "../../src/res/";

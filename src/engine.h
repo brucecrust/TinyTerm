@@ -57,6 +57,8 @@ namespace Engine {
 
         static std::vector<std::string> get_file_contents(std::string file_name);
 
+        static std::pair<int, int> read_file_contents(std::string file_name);
+
         void print_ascii(WINDOW *window, int column, int line, const std::string& file_name, short foreground_color, short background_color);
     };
 

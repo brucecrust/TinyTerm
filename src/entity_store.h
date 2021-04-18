@@ -9,11 +9,11 @@ namespace EntityStore {
     // Base:
     class Entity {
     public:
-        Entity(std::string ascii, std::pair<int, int> position) { m_ascii = ascii; m_position = position; }
+        Entity(std::string ascii, std::pair<int, int> position);
 
         std::string m_ascii;
 
-        std::pair<int, int> m_position;
+        std::pair<int, int> m_position, m_ascii_dimensions;
     };
 
     // Player:

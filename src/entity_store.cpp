@@ -1,5 +1,10 @@
 #include "entity_store.h"
 
+EntityStore::Entity::Entity(std::string ascii, std::pair<int, int> position)  {
+    m_ascii = ascii;
+    m_position = position;
+}
+
 // Player:
 int EntityStore::Player::move() {
     int ch = getch();
