@@ -51,7 +51,12 @@ std::vector<std::string> Engine::Engine::get_file_contents(std::string file_name
     std::vector<std::string> contents;
     std::ifstream reader(file_name);
 
+    if (!reader.good()) {
+        m_ascii_state[file_name] = false;
+    }
+
     while (reader.good()) {
+        m_ascii_state[file_name] = true;
         std::string buffer;
         std::getline(reader, buffer);
         contents.push_back(buffer);
