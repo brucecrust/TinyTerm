@@ -13,7 +13,7 @@ namespace EntityStore {
 
         std::string m_ascii;
 
-        std::pair<int, int> m_position, m_ascii_dimensions;
+        std::pair<int, int> m_position, m_ascii_center;
     };
 
     // Player:

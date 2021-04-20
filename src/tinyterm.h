@@ -34,8 +34,13 @@ public:
 
     void reset_main_window_state();
 
-    // Debug:
-    void print_debug(std::vector<std::string> &args, int column, int line);
+    void set_ascii_center(EntityStore::Entity &entity);
+
+    void print_ascii(WINDOW *window, int column, int line, EntityStore::Entity &entity, short foreground_color, short background_color);
+
+
+        // Debug:
+    void print_debug(std::vector<std::string> args, int column, int line);
 
     void debug_player_position();
 

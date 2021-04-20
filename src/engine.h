@@ -3,6 +3,7 @@
 
 #include "strings.h"
 #include "numerics.h"
+#include "entity_store.h"
 #include <curses.h>
 #include <vector>
 #include <string>
@@ -63,6 +64,10 @@ namespace Engine {
         static std::pair<int, int> read_file_contents(std::string file_name);
 
         void print_ascii(WINDOW *window, int column, int line, const std::string& file_name, short foreground_color, short background_color);
+
+        int determine_median(int n);
+
+        std::pair<int, int> determine_ascii_center(std::string ascii);
     };
 
     // Vector Interactions:
