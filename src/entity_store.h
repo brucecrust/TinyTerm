@@ -14,23 +14,27 @@ namespace EntityStore {
         std::string m_ascii;
 
         std::pair<int, int> m_position, m_ascii_center, m_dimensions;
+
+        int move_player();
+
+        void move_rel_player(int last_key_press);
     };
 
     // Player:
     class Player : public Entity {
     public:
         Player(std::string ascii, std::pair<int, int> position) : Entity(ascii, position) {}
-
-        // All user input functions must return the last pressed key, thus type of int.
-        int move();
     };
 
     // Entity 
     class Grass : public Entity {
     public:
         Grass(std::string ascii, std::pair<int, int> position) : Entity(ascii, position) {}
+    };
 
-        void move(int last_key_press);
+    class Shadow : public Entity {
+    public:
+        Shadow(std::string ascii, std::pair<int, int> position) : Entity(ascii, position) {}
     };
 
 }
