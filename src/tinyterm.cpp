@@ -31,13 +31,10 @@ void TinyTerm::on_update() {
         debug_ascii_loading();
         debug_player_position();
 
-        print_to_window(p_m_main_window, Numerics::default_int, Numerics::default_int, Strings::tiny_term);
-        draw_window_border(p_m_main_window);
-
         m_last_key_press = m_player.move();
         m_grass.move(m_last_key_press);
 
-        wclear(p_m_main_window);
+        reset_main_window_state();
     }
 
     Engine::on_destroy();
@@ -94,6 +91,12 @@ void TinyTerm::evaluate_ascii_state() {
             m_printed_ascii_images.push_back(key);
         }
     }
+}
+
+void TinyTerm::reset_main_window_state() {
+    wclear(p_m_main_window);
+    draw_window_border(p_m_main_window);
+    print_to_window(p_m_main_window, Numerics::default_int, Numerics::default_int, Strings::tiny_term);
 }
 
 // Debug:

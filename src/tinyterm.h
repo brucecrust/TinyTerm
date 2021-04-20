@@ -32,6 +32,8 @@ public:
 
     void evaluate_ascii_state();
 
+    void reset_main_window_state();
+
     // Debug:
     void print_debug(std::vector<std::string> &args, int column, int line);
 
