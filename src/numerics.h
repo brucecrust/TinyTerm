@@ -5,6 +5,8 @@ namespace Numerics {
 
     const auto default_int = 0;
 
+    const auto back_path_length = 14;
+
     namespace Windows {
 
         // Placement:

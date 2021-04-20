@@ -35,4 +35,4 @@ namespace EntityStore {
 
 }
 
-#endif //TINYTERM_ENTITIE_STORE_H
+#endif

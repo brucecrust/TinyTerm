@@ -50,8 +50,14 @@ void Engine::Engine::print_to_window(WINDOW *window, int column, int line, const
 std::vector<std::string> Engine::Engine::get_file_contents(std::string file_name) {
     std::vector<std::string> contents;
     std::ifstream reader(file_name);
+    std::string file_name_no_back_path = file_name.erase(0, Numerics::back_path_length);
+
+    if (!reader.good()) {
+        m_ascii_state[file_name_no_back_path] = false;
+    }
 
     while (reader.good()) {
+        m_ascii_state[file_name_no_back_path] = true;
         std::string buffer;
         std::getline(reader, buffer);
         contents.push_back(buffer);

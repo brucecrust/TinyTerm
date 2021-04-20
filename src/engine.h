@@ -15,7 +15,10 @@ namespace Engine {
 
     public:
         short m_default_color_pair = 0;
+
         int m_last_key_press;
+
+        std::unordered_map<std::string, bool> m_ascii_state = {};
 
         /**
          * Initializes basic Curses functionality, such as p_window.
@@ -55,7 +58,7 @@ namespace Engine {
          * */
         static void print_to_window(WINDOW *window, int column, int line, const char *text);
 
-        static std::vector<std::string> get_file_contents(std::string file_name);
+        std::vector<std::string> get_file_contents(std::string file_name);
 
         static std::pair<int, int> read_file_contents(std::string file_name);
 
