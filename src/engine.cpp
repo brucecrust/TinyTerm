@@ -107,8 +107,8 @@ int Engine::Engine::determine_median(int n) {
     return (n + 1) / 2;
 }
 
-std::pair<int, int> Engine::Engine::determine_ascii_center(std::string ascii) {
-    auto dimensions = read_file_contents(ascii);
+std::pair<int, int> Engine::Engine::determine_ascii_center(std::string file_name) {
+    auto dimensions = read_file_contents(file_name);
     return std::pair<int, int> { determine_median(dimensions.first), determine_median(dimensions.second) };
 }
 

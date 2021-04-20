@@ -25,16 +25,38 @@ void TinyTerm::on_update() {
             break;
         }
 
+        set_ascii_dimensions(m_grass);
+        set_ascii_center(m_grass);
+
+        set_ascii_dimensions(m_player);
+        set_ascii_center(m_player);
+
+        m_player.m_position = {
+                (m_grass.m_ascii_center.first + m_grass.m_position.first) - 2,
+                (m_grass.m_ascii_center.second + m_grass.m_position.second)
+        };
+
         print_ascii(p_m_main_window, m_grass.m_position.first, m_grass.m_position.second, m_grass, COLOR_GREEN, COLOR_BLACK);
-        print_ascii(p_m_main_window, m_grass.m_ascii_center.first + m_grass.m_position.first, m_grass.m_ascii_center.second + m_grass.m_position.second,m_player, COLOR_WHITE, COLOR_BLACK);
+        print_ascii(p_m_main_window,
+                    m_player.m_position.first,
+                    m_player.m_position.second,
+                    m_player, COLOR_WHITE, COLOR_BLACK);
 
         print_debug(std::vector<std::string> {
-                "Dimensions:",
+                "Center:",
                 "x:",
                 std::to_string(m_grass.m_ascii_center.first),
                 "y:",
                 std::to_string(m_grass.m_ascii_center.second)
         }, 3, 1);
+
+        print_debug(std::vector<std::string> {
+                "Dimensions:",
+                "x:",
+                std::to_string(m_player.m_dimensions.first),
+                "y:",
+                std::to_string(m_player.m_dimensions.second)
+        }, 4, 1);
 
         debug_ascii_loading();
         debug_player_position();
@@ -101,12 +123,15 @@ void TinyTerm::evaluate_ascii_state() {
     }
 }
 
+void TinyTerm::set_ascii_dimensions(EntityStore::Entity &entity) {
+    entity.m_dimensions = read_file_contents(entity.m_ascii);
+}
+
 void TinyTerm::set_ascii_center(EntityStore::Entity &entity) {
     entity.m_ascii_center = determine_ascii_center(entity.m_ascii);
 }
 
 void TinyTerm::print_ascii(WINDOW *window, int column, int line, EntityStore::Entity &entity, short foreground_color, short background_color) {
-    set_ascii_center(entity);
     Engine::print_ascii(window, column, line, entity.m_ascii, foreground_color, background_color);
 }
 

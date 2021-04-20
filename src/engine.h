@@ -67,7 +67,7 @@ namespace Engine {
 
         int determine_median(int n);
 
-        std::pair<int, int> determine_ascii_center(std::string ascii);
+        std::pair<int, int> determine_ascii_center(std::string file_name);
     };
 
     // Vector Interactions:
