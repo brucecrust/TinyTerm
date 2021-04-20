@@ -16,6 +16,7 @@ void TinyTerm::on_create() {
                     Strings::press_q_to_quit);
 
     wrefresh(p_m_main_window);
+
     on_update();
 }
 
@@ -31,8 +32,9 @@ void TinyTerm::on_update() {
         set_ascii_dimensions(m_player);
         set_ascii_center(m_player);
 
+        // TODO: Position is slightly off here. Tried subtracting the player ascii dimension and that didn't work :P
         m_player.m_position = {
-                (m_grass.m_ascii_center.first + m_grass.m_position.first) - 2,
+                (m_grass.m_ascii_center.first + m_grass.m_position.first),
                 (m_grass.m_ascii_center.second + m_grass.m_position.second)
         };
 
@@ -42,24 +44,26 @@ void TinyTerm::on_update() {
                     m_player.m_position.second,
                     m_player, COLOR_WHITE, COLOR_BLACK);
 
-        print_debug(std::vector<std::string> {
-                "Center:",
-                "x:",
-                std::to_string(m_grass.m_ascii_center.first),
-                "y:",
-                std::to_string(m_grass.m_ascii_center.second)
-        }, 3, 1);
+        if (m_debug_mode) {
+            print_debug(std::vector<std::string> {
+                    "Center:",
+                    "x:",
+                    std::to_string(m_grass.m_ascii_center.first),
+                    "y:",
+                    std::to_string(m_grass.m_ascii_center.second)
+            }, 3, 1);
 
-        print_debug(std::vector<std::string> {
-                "Dimensions:",
-                "x:",
-                std::to_string(m_player.m_dimensions.first),
-                "y:",
-                std::to_string(m_player.m_dimensions.second)
-        }, 4, 1);
+            print_debug(std::vector<std::string> {
+                    "Dimensions:",
+                    "x:",
+                    std::to_string(m_player.m_dimensions.first),
+                    "y:",
+                    std::to_string(m_player.m_dimensions.second)
+            }, 4, 1);
 
-        debug_ascii_loading();
-        debug_player_position();
+            debug_ascii_loading();
+            debug_player_position();
+        }
 
         m_last_key_press = m_player.move();
         m_grass.move(m_last_key_press);
