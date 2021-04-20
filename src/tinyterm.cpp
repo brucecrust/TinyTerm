@@ -15,9 +15,6 @@ void TinyTerm::on_create() {
                     Numerics::Windows::default_dialog_offset,
                     Strings::press_q_to_quit);
 
-    print_ascii(p_m_main_window, m_grass.m_position.first, m_grass.m_position.second, m_grass.m_ascii, COLOR_GREEN, COLOR_BLACK);
-    print_ascii(p_m_main_window, m_player.m_position.first, m_player.m_position.second, m_player.m_ascii, COLOR_WHITE, COLOR_BLACK);
-
     wrefresh(p_m_main_window);
     on_update();
 }
@@ -28,23 +25,19 @@ void TinyTerm::on_update() {
             break;
         }
 
-        debug_player_position();
-
         print_ascii(p_m_main_window, m_grass.m_position.first, m_grass.m_position.second, m_grass.m_ascii, COLOR_GREEN, COLOR_BLACK);
         print_ascii(p_m_main_window, m_player.m_position.first, m_player.m_position.second, m_player.m_ascii, COLOR_WHITE, COLOR_BLACK);
 
-        evaluate_ascii_state();
-
         debug_ascii_loading();
+        debug_player_position();
+
+        print_to_window(p_m_main_window, Numerics::default_int, Numerics::default_int, Strings::tiny_term);
+        draw_window_border(p_m_main_window);
 
         m_last_key_press = m_player.move();
         m_grass.move(m_last_key_press);
 
         wclear(p_m_main_window);
-        draw_window_border(p_m_main_window);
-
-        print_ascii(p_m_main_window, m_grass.m_position.first, m_grass.m_position.second, m_grass.m_ascii, COLOR_GREEN, COLOR_BLACK);
-        print_ascii(p_m_main_window, m_player.m_position.first, m_player.m_position.second, m_player.m_ascii, COLOR_WHITE, COLOR_BLACK);
     }
 
     Engine::on_destroy();
@@ -96,7 +89,8 @@ void TinyTerm::initialize_windows() {
 
 void TinyTerm::evaluate_ascii_state() {
     for (const auto &[key, val] : m_ascii_state) {
-        if (val) {
+        bool string_exists = std::find(m_printed_ascii_images.begin(), m_printed_ascii_images.end(), key) != m_printed_ascii_images.end();
+        if (val && !string_exists) {
             m_printed_ascii_images.push_back(key);
         }
     }
@@ -128,6 +122,8 @@ void TinyTerm::debug_player_position() {
 }
 
 void TinyTerm::debug_ascii_loading() {
+    evaluate_ascii_state();
+
     std::vector<std::string> ascii_text = { Strings::ascii };
     for (auto &i : m_printed_ascii_images) {
         ascii_text.push_back(i);
