@@ -71,7 +71,7 @@ std::vector<std::string> Engine::Engine::get_file_contents(std::string file_name
 std::pair<int, int> Engine::Engine::read_file_contents(std::string file_name) {
     std::vector<std::string> contents;
     std::pair<int, int> dimensions = { 0, 0 };
-    std::ifstream reader(file_name);
+    std::ifstream reader(Strings::back_path + file_name);
 
     while (reader.good()) {
         std::string buffer;
@@ -80,13 +80,15 @@ std::pair<int, int> Engine::Engine::read_file_contents(std::string file_name) {
         dimensions.second += buffer.length();
     }
 
+    dimensions.second /= dimensions.first;
+
     return dimensions;
 }
 
 void Engine::Engine::print_ascii(WINDOW *window, int column, int line, const std::string& file_name, short foreground_color, short background_color) {
     // Since the executable runs from a build directory, we need to back up and provide an appropriate path.
-    std::string back_path = "../../src/res/";
-    std::vector<std::string> ascii = get_file_contents(back_path + file_name);
+
+    std::vector<std::string> ascii = get_file_contents(Strings::back_path + file_name);
 
     ++m_default_color_pair;
     init_pair(m_default_color_pair, foreground_color, background_color);
@@ -99,6 +101,15 @@ void Engine::Engine::print_ascii(WINDOW *window, int column, int line, const std
     }
 
     wrefresh(window);
+}
+
+int Engine::Engine::determine_median(int n) {
+    return (n + 1) / 2;
+}
+
+std::pair<int, int> Engine::Engine::determine_ascii_center(std::string file_name) {
+    auto dimensions = read_file_contents(file_name);
+    return std::pair<int, int> { determine_median(dimensions.first), determine_median(dimensions.second) };
 }
 
 // Deprecated:

@@ -16,6 +16,7 @@ void TinyTerm::on_create() {
                     Strings::press_q_to_quit);
 
     wrefresh(p_m_main_window);
+
     on_update();
 }
 
@@ -25,16 +26,43 @@ void TinyTerm::on_update() {
             break;
         }
 
-        print_ascii(p_m_main_window, m_grass.m_position.first, m_grass.m_position.second, m_grass.m_ascii, COLOR_GREEN, COLOR_BLACK);
-        print_ascii(p_m_main_window, m_player.m_position.first, m_player.m_position.second, m_player.m_ascii, COLOR_WHITE, COLOR_BLACK);
-
-        debug_ascii_loading();
-        debug_player_position();
-
-        m_last_key_press = m_player.move();
-        m_grass.move(m_last_key_press);
-
         reset_main_window_state();
+
+        adjust_ascii(m_grass);
+        adjust_ascii(m_player);
+
+        // TODO: Position is slightly off here. Tried subtracting the player ascii dimension and that didn't work :P
+        m_player.m_position = {
+                (m_grass.m_ascii_center.first + m_grass.m_position.first),
+                (m_grass.m_ascii_center.second + m_grass.m_position.second)
+        };
+
+        print_ascii(p_m_main_window, m_grass.m_position.first, m_grass.m_position.second, m_grass, COLOR_GREEN, COLOR_BLACK);
+        print_ascii(p_m_main_window,m_player.m_position.first, m_player.m_position.second, m_player, COLOR_WHITE, COLOR_BLACK);
+
+        if (m_debug_mode) {
+            print_debug(std::vector<std::string> {
+                    "Center:",
+                    "x:",
+                    std::to_string(m_grass.m_ascii_center.first),
+                    "y:",
+                    std::to_string(m_grass.m_ascii_center.second)
+            }, 3, 1);
+
+            print_debug(std::vector<std::string> {
+                    "Dimensions:",
+                    "x:",
+                    std::to_string(m_player.m_dimensions.first),
+                    "y:",
+                    std::to_string(m_player.m_dimensions.second)
+            }, 4, 1);
+
+            debug_ascii_loading();
+            debug_player_position();
+        }
+
+        m_last_key_press = m_player.move_player();
+        m_grass.move_rel_player(m_last_key_press);
     }
 
     Engine::on_destroy();
@@ -93,16 +121,33 @@ void TinyTerm::evaluate_ascii_state() {
     }
 }
 
+void TinyTerm::set_ascii_dimensions(EntityStore::Entity &entity) {
+    entity.m_dimensions = read_file_contents(entity.m_ascii);
+}
+
+void TinyTerm::set_ascii_center(EntityStore::Entity &entity) {
+    entity.m_ascii_center = determine_ascii_center(entity.m_ascii);
+}
+
+void TinyTerm::print_ascii(WINDOW *window, int column, int line, EntityStore::Entity &entity, short foreground_color, short background_color) {
+    Engine::print_ascii(window, column, line, entity.m_ascii, foreground_color, background_color);
+}
+
 void TinyTerm::reset_main_window_state() {
     wclear(p_m_main_window);
     draw_window_border(p_m_main_window);
     print_to_window(p_m_main_window, Numerics::default_int, Numerics::default_int, Strings::tiny_term);
 }
 
-// Debug:
 
-void TinyTerm::print_debug(std::vector<std::string> &args, int column, int line) {
-    int length_of_last_string = 0;
+void TinyTerm::adjust_ascii(EntityStore::Entity &entity) {
+    set_ascii_dimensions(entity);
+    set_ascii_center(entity);
+}
+
+// Debug:
+void TinyTerm::print_debug(std::vector<std::string> args, int column, int line) {
+    int length_of_last_string;
 
     for (const auto &i : args) {
         print_to_window(p_m_debug_window, column, line, i.c_str());
