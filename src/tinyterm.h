@@ -15,7 +15,6 @@ public:
 
     EntityStore::Player m_player = EntityStore::Player("player.txt", std::pair<int, int> { 17, 27 });
     EntityStore::Grass m_grass = EntityStore::Grass("grass.txt", std::pair{ 0,0 });
-    EntityStore::Grass m_shadow = EntityStore::Grass("shadow.txt", std::pair{ 17, 27 });
 
     std::pair<int, int> m_main_window_size, m_text_window_size, m_debug_window_size;
 

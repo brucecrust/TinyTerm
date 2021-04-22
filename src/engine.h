@@ -9,6 +9,8 @@
 #include <string>
 #include <algorithm>
 #include <fstream>
+#include <chrono>
+#include <thread>
 
 namespace Engine {
 

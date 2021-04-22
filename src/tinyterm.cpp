@@ -22,6 +22,7 @@ void TinyTerm::on_create() {
 
 void TinyTerm::on_update() {
     for (;;) {
+        auto start = std::chrono::system_clock::now();
         if (m_last_key_press == 'q') {
             break;
         }
@@ -60,6 +61,9 @@ void TinyTerm::on_update() {
             debug_ascii_loading();
             debug_player_position();
         }
+
+        auto delta_time = std::chrono::system_clock::now() - start;
+        std::this_thread::sleep_for(delta_time);
 
         m_last_key_press = m_player.move_player();
         m_grass.move_rel_player(m_last_key_press);
