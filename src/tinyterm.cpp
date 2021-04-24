@@ -143,10 +143,17 @@ void TinyTerm::reset_main_window_state() {
     print_to_window(p_m_main_window, Numerics::default_int, Numerics::default_int, Strings::tiny_term);
 }
 
-
 void TinyTerm::adjust_ascii(EntityStore::Entity &entity) {
     set_ascii_dimensions(entity);
     set_ascii_center(entity);
+}
+
+void print_circle(WINDOW *window, int column, int line) {
+    for (int c = 0; c < column; ++c) {
+        for (int l = 0; l < line; ++l) {
+            mvwprintw(window, c, l, ".");
+        }
+    }
 }
 
 // Debug:

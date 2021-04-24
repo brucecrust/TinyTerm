@@ -103,6 +103,22 @@ void Engine::Engine::print_ascii(WINDOW *window, int column, int line, const std
     wrefresh(window);
 }
 
+void Engine::Engine::print_circle(WINDOW *window, int h, int k, int radius) {
+    double pi = 3.14f;
+
+    int circumference = ceil(radius * 2 * pi);
+    circumference -= circumference % 4;
+
+    int x, y;
+    for (int i = 0; i < circumference; ++i) {
+        x = radius * cos(i * 2 * pi / circumference) + h;
+        y = radius * sin(i * 2 * pi / circumference) + k;
+        mvwprintw(window, y, x, ".");
+    }
+
+    wrefresh(window);
+}
+
 int Engine::Engine::determine_median(int n) {
     return (n + 1) / 2;
 }

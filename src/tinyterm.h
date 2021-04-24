@@ -42,6 +42,8 @@ public:
 
     void adjust_ascii(EntityStore::Entity &entity);
 
+    void print_circle(WINDOW *window, int column, int line);
+
     // Debug:
     void print_debug(std::vector<std::string> args, int column, int line);
 
