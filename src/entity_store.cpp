@@ -7,6 +7,7 @@ EntityStore::Entity::Entity(std::string ascii, std::pair<int, int> position)  {
 
 int EntityStore::Entity::move_player() {
     int ch = getch();
+
     if (ch == 'w') m_position.first -= 1;
     if (ch == 's') m_position.first += 1;
     if (ch == 'a') m_position.second -= 1;

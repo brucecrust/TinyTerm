@@ -2,7 +2,7 @@
 #include <iostream>
 
 int main() {
-    auto tinyTerm = TinyTerm(false);
+    auto tinyTerm = TinyTerm(true);
     tinyTerm.on_create();
     return 0;
 }
