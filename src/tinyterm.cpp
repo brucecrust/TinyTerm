@@ -21,6 +21,8 @@ void TinyTerm::on_create() {
 }
 
 void TinyTerm::on_update() {
+    int radius = 12;
+    int c = 0;
     for (;;) {
         auto start = std::chrono::system_clock::now();
         if (m_last_key_press == 'q') {
@@ -38,8 +40,14 @@ void TinyTerm::on_update() {
                 (m_grass.m_ascii_center.second + m_grass.m_position.second)
         };
 
-        print_ascii(p_m_main_window, m_grass.m_position.first, m_grass.m_position.second, m_grass, COLOR_GREEN, COLOR_BLACK);
+        //print_ascii(p_m_main_window, m_grass.m_position.first, m_grass.m_position.second, m_grass, COLOR_GREEN, COLOR_BLACK);
         print_ascii(p_m_main_window,m_player.m_position.first, m_player.m_position.second, m_player, COLOR_WHITE, COLOR_BLACK);
+
+        if (c % 60) {
+            radius -= 1;
+        }
+
+        print_circle(p_m_main_window, m_player.m_position.second, m_player.m_position.first, radius);
 
         if (m_debug_mode) {
             print_debug(std::vector<std::string> {
@@ -67,6 +75,8 @@ void TinyTerm::on_update() {
 
         m_last_key_press = m_player.move_player();
         m_grass.move_rel_player(m_last_key_press);
+
+        ++c;
     }
 
     Engine::on_destroy();
@@ -146,14 +156,6 @@ void TinyTerm::reset_main_window_state() {
 void TinyTerm::adjust_ascii(EntityStore::Entity &entity) {
     set_ascii_dimensions(entity);
     set_ascii_center(entity);
-}
-
-void print_circle(WINDOW *window, int column, int line) {
-    for (int c = 0; c < column; ++c) {
-        for (int l = 0; l < line; ++l) {
-            mvwprintw(window, c, l, ".");
-        }
-    }
 }
 
 // Debug:
