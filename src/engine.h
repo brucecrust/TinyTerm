@@ -25,6 +25,10 @@ namespace Engine {
 
         std::unordered_map<std::string, bool> m_ascii_state = {};
 
+        const std::filesystem::path root_path = std::filesystem::current_path().parent_path().parent_path();
+
+        std::string back_path = root_path.generic_string() + "/src/res/";
+
         /**
          * Initializes basic Curses functionality, such as p_window.
          * */
@@ -75,7 +79,7 @@ namespace Engine {
          *
          * @param file_name: The name of a file to read from.
          * */
-        static std::pair<int, int> read_file_contents(std::string file_name);
+        std::pair<int, int> read_file_contents(std::string file_name);
 
         /**
          * Prints a given ascii image to the window at a certain position. Implements foreground and background colors.
@@ -87,7 +91,7 @@ namespace Engine {
          * @param foreground_color: A short value, derived from curses, to color the foreground.
          * @param background_color: A short value, derived from curses, to color the background.
          * */
-        void print_ascii(WINDOW *window, int column, int line, const std::string& file_name, short foreground_color, short background_color);
+        void print_ascii(WINDOW *window, int column, int line, std::string file_name, short foreground_color, short background_color);
 
         /**
          * Prints a circle from a center point (h, k), using a given radius from the center.
