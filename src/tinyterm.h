@@ -13,8 +13,8 @@ public:
     // Members:
     bool m_debug_mode;
 
-    EntityStore::Player m_player = EntityStore::Player("player2.txt", std::pair<int, int> { 17, 27 });
-    EntityStore::Grass m_grass = EntityStore::Grass("grass.txt", std::pair{ 10, 10 });
+    EntityStore::Player m_player = EntityStore::Player("player.txt", std::pair<int, int> { 17, 27 });
+    EntityStore::Grass m_grass = EntityStore::Grass("grass.txt", std::pair{ 0,0 });
 
     std::pair<int, int> m_main_window_size, m_text_window_size, m_debug_window_size;
 
@@ -34,8 +34,16 @@ public:
 
     void reset_main_window_state();
 
+    void set_ascii_dimensions(EntityStore::Entity &entity);
+
+    void set_ascii_center(EntityStore::Entity &entity);
+
+    void print_ascii(WINDOW *window, int column, int line, EntityStore::Entity &entity, short foreground_color, short background_color);
+
+    void adjust_ascii(EntityStore::Entity &entity);
+
     // Debug:
-    void print_debug(std::vector<std::string> &args, int column, int line);
+    void print_debug(std::vector<std::string> args, int column, int line);
 
     void debug_player_position();
 

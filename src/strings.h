@@ -16,6 +16,7 @@ namespace Strings {
     // Debug:
     const auto player_position = "Plyr POS:";
     const auto ascii = "Ascii:";
+    const auto back_path = "../../src/res/";
 
     // User Input:
     const auto invalid_input = "Invalid input, please select an appropriate answer." ;

@@ -3,11 +3,15 @@
 
 #include "strings.h"
 #include "numerics.h"
+#include "entity_store.h"
 #include <curses.h>
 #include <vector>
 #include <string>
 #include <algorithm>
 #include <fstream>
+#include <chrono>
+#include <thread>
+#include <cmath>
 
 namespace Engine {
 
@@ -58,11 +62,55 @@ namespace Engine {
          * */
         static void print_to_window(WINDOW *window, int column, int line, const char *text);
 
+        /**
+         * Reads file contents line by line and returns the contents in a string vector.
+         *
+         * @param file_name: The name of a file to read from.
+         * */
         std::vector<std::string> get_file_contents(std::string file_name);
 
+        /**
+         * Reads file contents line by line and returns the dimensions in a pair of integers.
+         *
+         * @param file_name: The name of a file to read from.
+         * */
         static std::pair<int, int> read_file_contents(std::string file_name);
 
+        /**
+         * Prints a given ascii image to the window at a certain position. Implements foreground and background colors.
+         *
+         * @param window: A pointer to a window to draw on.
+         * @param column: The starting column position.
+         * @param line: The starting line position.
+         * @param file_name: A constant reference to a file name containing ascii art.
+         * @param foreground_color: A short value, derived from curses, to color the foreground.
+         * @param background_color: A short value, derived from curses, to color the background.
+         * */
         void print_ascii(WINDOW *window, int column, int line, const std::string& file_name, short foreground_color, short background_color);
+
+        /**
+         * Prints a circle from a center point (h, k), using a given radius from the center.
+         *
+         * @param window: A pointer to a window to draw on.
+         * @param h: The x position of the center point.
+         * @param k: The y position of the center point.
+         * @param radius: The preferred radius of the circle.
+         * */
+        void print_circle(WINDOW *window, int h, int k, int radius);
+
+        /**
+         * Determines the median of a given integer.
+         *
+         * @param n: An integer to derive a median value from.
+         * */
+        int determine_median(int n);
+
+        /**
+         * Using the dimensions of a file, get the center of a given ascii image.
+         *
+         * @param file_name: The name of a file to read from.
+         * */
+        std::pair<int, int> determine_ascii_center(std::string file_name);
     };
 
     // Vector Interactions:
